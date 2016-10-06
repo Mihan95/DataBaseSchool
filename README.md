@@ -6,6 +6,7 @@ fillingDB.py -- создает и заполняет БД school,
 dropDB.py -- удаляет БД school.
 
 check.sh -- скрипт проверки запросов.
+\n
 
 Параметры запуска:
     ./school.py get_tutors_list
