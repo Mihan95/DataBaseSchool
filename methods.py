@@ -72,12 +72,6 @@ def get_class_stat(self, class_name, teacher_id):
         cursor.execute("SELECT pkid FROM Pupils WHERE class='%s'" % class_name)
         pkids = cursor.fetchall()
         
-        """Проверка.
-        
-        Проверяем, есть ли данные, соответствующие запросам.
-        Если нет, то сообщаем об этом и выходим и метода.
-        
-        """    
         if not (pkids):
             print("В этом классе нет учеников")
             return
@@ -154,7 +148,6 @@ def get_pupil_stat_list(self, pupil_id):
     try:
         conn = MySQLdb.connect(host="localhost", user="root", passwd="",
                                db="school", charset = "utf8")
-        
         cursor = conn.cursor()
         cursor.execute("SELECT subject,marks FROM Getting " \
                        "WHERE id_pup='%d'" % pupil_id)
@@ -251,7 +244,6 @@ def set_pupil_point(self, subject, new_mark,
             cursor.execute("SELECT marks FROM Getting WHERE id_pup='%d' " \
                            "AND subject='%s'" % (pupil_id, subject))
             old_marks = cursor.fetchone()
-            
             changed_marks = str(old_marks[0]) + " " + str(new_mark)
                 
             cursor.execute("UPDATE Getting SET marks='%s' WHERE id_pup='%d' " \
