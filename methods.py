@@ -28,8 +28,7 @@ def get_tutors_list(self):
 def get_pupils_list(self, class_name):
     
     """Печатает список имен всех учеников, которые обучаются
-    в классе class_name.
-    
+    в классе class_name. Берет напрямую из таблицы Pupils.    
     """
     try:
         conn = MySQLdb.connect(host="localhost", user="root", passwd="",
@@ -142,7 +141,7 @@ def get_pupil_disciplines(self, pupil_id):
 def get_pupil_stat_list(self, pupil_id):
     
     """Печатает оценки по всем дисциплинам у заданного ученика (ученик определяется 
-    своим id).
+    своим id). Берем напрямую из таблицы Getting.
     pupil_id -- заданное id ученика
     """
     try:
