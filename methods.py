@@ -7,6 +7,7 @@ import MySQLdb
 import funcs
 
 def get_tutors_list(self):
+    
     """Печатает список имен всех учителей, которые есть в БД."""
     try:
         conn = MySQLdb.connect(host="localhost", user="root", passwd="",
@@ -25,6 +26,7 @@ def get_tutors_list(self):
 #--------------------------------------------------------------------------------------------------------------------------------------------#	  
   
 def get_pupils_list(self, class_name):
+    
     """Печатает список имен всех учеников, которые обучаются
     в классе class_name.
     
@@ -47,6 +49,7 @@ def get_pupils_list(self, class_name):
 #--------------------------------------------------------------------------------------------------------------------------------------------#	
              
 def get_class_stat(self, class_name, teacher_id):
+    
     """Печатает все оценки в классе по всем ученикам, от имени конкретного преподавателя.
     
     class_name -- название класса, в котором смотрятся оценки,
@@ -57,12 +60,14 @@ def get_class_stat(self, class_name, teacher_id):
         conn = MySQLdb.connect(host="localhost", user="root", passwd="",
                                db="school", charset = "utf8")
         cursor = conn.cursor()
+        
         """Выбираем все предметы, которые ведет учитель с id == teacher_id
         в классе class_name
         """
         cursor.execute("SELECT subject FROM Teaching WHERE class='%s' " \
                        "AND id_teach='%d'" % (class_name, teacher_id))
-        subjects = cursor.fetchall()    
+        subjects = cursor.fetchall()  
+        
         """Выбираем id всех учеников из класса class_name"""
         cursor.execute("SELECT pkid FROM Pupils WHERE class='%s'" % class_name)
         pkids = cursor.fetchall()
@@ -107,6 +112,7 @@ def get_class_stat(self, class_name, teacher_id):
 #--------------------------------------------------------------------------------------------------------------------------------------------#	
         
 def get_pupil_disciplines(self, pupil_id):
+    
     """Печатает число предметов у заданного ученика (ученик определяется 
     своим id).
     pupil_id -- заданное id ученика.
@@ -116,6 +122,7 @@ def get_pupil_disciplines(self, pupil_id):
                                db="school", charset = "utf8")
         cursor = conn.cursor()
         cursor.execute("SELECT subject FROM Getting WHERE id_pup='%d'" % pupil_id)
+        
         """Пока не кончаться записи, достаем их по одной и прибавляем 1 к общему количеству,
         после чего, печатаем количество записей
         """
@@ -139,6 +146,7 @@ def get_pupil_disciplines(self, pupil_id):
 #--------------------------------------------------------------------------------------------------------------------------------------------#	
 
 def get_pupil_stat_list(self, pupil_id):
+    
     """Печатает оценки по всем дисциплинам у заданного ученика (ученик определяется 
     своим id).
     pupil_id -- заданное id ученика
@@ -170,6 +178,7 @@ def get_pupil_stat_list(self, pupil_id):
            
 def get_pupil_stat(self, subject, pupil_id):
     try:
+        
     """Печатает оценки по всем заданной дисциплине у заданного ученика.
     
     subject -- название предмета, по которому нужно получить статистику оценок,
@@ -181,6 +190,7 @@ def get_pupil_stat(self, subject, pupil_id):
         cursor.execute("SELECT marks FROM Getting WHERE id_pup='%d' " \
                        "AND subject='%s'" % (pupil_id, subject))
         marks_stat = cursor.fetchone()
+        
         """Проверяем наличие статистики (есть ли заданный предмет у ученика) по заданному ученику,
         если она есть, то печатаем.
         """
@@ -218,6 +228,7 @@ def set_pupil_point(self, subject, new_mark,
         if not (new_mark > 0 and new_mark < 6):
             print("Неправильная отметка")
             return
+        
         """Получаем класс, в котором учится заданный ученик."""    
         cursor.execute("SELECT class FROM Pupils WHERE id_pup='%d'" % pupil_id)
         pupil_class = cursor.fetchone()
@@ -261,6 +272,7 @@ def set_pupil_point(self, subject, new_mark,
 #--------------------------------------------------------------------------------------------------------------------------------------------#	
 
 def parser(self):
+    
     """Просто парсер командной строки.
     В зависимости аргументов вызывает тот или иной метод или пишет что аргументы не верны.
     """

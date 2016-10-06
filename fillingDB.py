@@ -29,6 +29,7 @@ def insert_from_file(conn, cursor, file_name, nFields,
         for line in lines:
             j = j + 1        # Считаем номер извлекаемой строки
             els = line.split(";")
+            
             """Сначала заносим в таблицу номера типа (1)"""
             cursor.execute("INSERT INTO %s (%s)  VALUES ('%d')"
                            % (table_name, fields_name[0], int(els[0])))
